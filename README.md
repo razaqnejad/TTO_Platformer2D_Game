@@ -1,7 +1,7 @@
 # Through The Ordinary
 ### 2D Platformer Game
 
-### Installation Files
+### Game File
 Download the whole folder as a .zip file and run "Throug The Ordinary.exe"
 
 ### Assest
