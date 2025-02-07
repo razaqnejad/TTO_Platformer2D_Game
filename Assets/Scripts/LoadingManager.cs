@@ -11,7 +11,7 @@ public class LoadingManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         //Destroy duplicate gameobjects
         else if (instance != null && instance != this)
