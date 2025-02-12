@@ -33,10 +33,7 @@ public class UIManager : MonoBehaviour
     public void Restart(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-    public void MainMenu(){
-        SceneManager.LoadScene(0);
-    }
+    #endregion
 
     public void Quit(){
         Application.Quit();
@@ -46,7 +43,6 @@ public class UIManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }
-    #endregion
 
     #region Pause
     public void PauseGame(bool status) {
@@ -66,4 +62,12 @@ public class UIManager : MonoBehaviour
         SoundManager.instance.ChangeMusicVolume(0.1f);
     }
     #endregion
+
+    public void MainMenu(){
+        SceneManager.LoadSceneAsync("_MainMenu");
+        // GameObject player = GameObject.FindGameObjectWithTag("Player");
+        // if (player != null) {
+        //     Destroy(player);
+        // }
+    }
 }

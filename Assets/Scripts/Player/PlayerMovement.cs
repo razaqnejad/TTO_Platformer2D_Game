@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDataPersistence
 {
     [Header ("Movement Parameters")]
     [SerializeField] private float speed;
@@ -91,5 +91,14 @@ public class PlayerMovement : MonoBehaviour
     public bool canAttack()
     {
         return horizontalInput == 0 && isGrounded() && !onWall();
+    }
+
+    public void LoadData(GameData data){
+        // this.transform.position = data.playerPosition;
+
+    }
+
+    public void SaveData(ref GameData data){
+        // data.playerPosition = this.transform.position;
     }
 }

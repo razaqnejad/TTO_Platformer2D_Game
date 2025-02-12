@@ -7,6 +7,7 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] private RectTransform[] buttons;
     [SerializeField] private AudioClip changeSound;
     [SerializeField] private AudioClip interactSound;
+    private GameData data;
     private int currentPosition;
 
     private void Awake()
@@ -48,13 +49,21 @@ public class MainMenuUIManager : MonoBehaviour
 
         if (currentPosition == 0)
         {
-            SceneManager.LoadScene(2);
+            // SceneManager.LoadScene(2);
+            DataPersistenceManager.instance.NewGame();
+            SceneManager.LoadSceneAsync("Level 1", LoadSceneMode.Single);
         }
         else if (currentPosition == 1)
         {
-            SceneManager.LoadScene(1); // Locations
+            SceneManager.LoadSceneAsync("_Levels"); // Locations
+            // SceneManager.LoadScene(data.buildIndex);
         }
         else if (currentPosition == 2)
+        {
+            SceneManager.LoadSceneAsync("_Help"); // Levels
+            // SceneManager.LoadScene(data.buildIndex);
+        }
+        else if (currentPosition == 3)
             Application.Quit();
     }
 }
