@@ -2,7 +2,7 @@
 
 public class PlayerMovement : MonoBehaviour, IDataPersistence
 {
-    [Header ("Movement Parameters")]
+    [Header("Movement Parameters")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     private float coyoteCounter;
     private int jumpCounter;
 
-    [Header ("SFX")]
+    [Header("SFX")]
     [SerializeField] private AudioClip jumpSound;
 
     private Rigidbody2D body;
@@ -20,41 +20,45 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     private BoxCollider2D boxCollider;
     private float wallJumpCooldown;
     private float horizontalInput;
+    private float initialXScale; // Store the initial x-scale magnitude
 
     private void Awake()
     {
-        //Grab references for rigidbody and animator from object
+        // Grab references for rigidbody and animator from object
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        initialXScale = Mathf.Abs(transform.localScale.x); // Store the initial x-scale magnitude
     }
 
     private void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
 
-        //Flip player when moving left-right
+        // Flip player when moving left-right, preserving custom scale
         if (horizontalInput > 0.01f)
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(initialXScale, transform.localScale.y, transform.localScale.z);
         else if (horizontalInput < -0.01f)
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-initialXScale, transform.localScale.y, transform.localScale.z);
 
-        //Set animator parameters
+        // Set animator parameters
         anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("grounded", isGrounded());
 
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
         if (Input.GetKeyUp(KeyCode.Space) && body.velocity.y > 0)
-            body.velocity = new Vector2(body.velocity.x , body.velocity.y/2);
+            body.velocity = new Vector2(body.velocity.x, body.velocity.y / 2);
 
         body.gravityScale = 7;
         body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
 
-        if (isGrounded()){
+        if (isGrounded())
+        {
             coyoteCounter = coyoteTime;
             jumpCounter = extraJumps;
-        }else
+        }
+        else
             coyoteCounter -= Time.deltaTime;
     }
 
@@ -70,35 +74,38 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             if (coyoteCounter > 0)
                 body.velocity = new Vector2(body.velocity.x, jumpPower);
             else
-                if (jumpCounter > 0){
+                if (jumpCounter > 0)
+                {
                     body.velocity = new Vector2(body.velocity.x, jumpPower);
                     jumpCounter--;
                 }
         coyoteCounter = 0;
     }
 
-
     private bool isGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
         return raycastHit.collider != null;
     }
+
     private bool onWall()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
         return raycastHit.collider != null;
     }
+
     public bool canAttack()
     {
         return horizontalInput == 0 && isGrounded() && !onWall();
     }
 
-    public void LoadData(GameData data){
+    public void LoadData(GameData data)
+    {
         // this.transform.position = data.playerPosition;
-
     }
 
-    public void SaveData(ref GameData data){
+    public void SaveData(ref GameData data)
+    {
         // data.playerPosition = this.transform.position;
     }
 }
