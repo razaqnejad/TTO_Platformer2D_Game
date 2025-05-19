@@ -51,7 +51,7 @@ public class MainMenuUIManager : MonoBehaviour
         {
             // SceneManager.LoadScene(2);
             DataPersistenceManager.instance.NewGame();
-            SceneManager.LoadSceneAsync("Level 1", LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync("Intro", LoadSceneMode.Single);
         }
         else if (currentPosition == 1)
         {

@@ -49,7 +49,7 @@ public class LevelsUIManager : MonoBehaviour
 
         if (currentPosition == 0)
         {
-            SceneManager.LoadSceneAsync("Level 1", LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync("Intro", LoadSceneMode.Single);
         }
         else if (currentPosition == 1)
         {

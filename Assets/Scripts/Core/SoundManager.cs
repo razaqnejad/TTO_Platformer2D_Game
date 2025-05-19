@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
     private AudioSource soundSource;
     private AudioSource musicSource;
 
-    private void Awake() {
+    private void Awake() { // Get and initialize music source and sound source
         instance = this;
         soundSource = GetComponent<AudioSource>();
         musicSource = transform.GetChild(0).GetComponent<AudioSource>();
