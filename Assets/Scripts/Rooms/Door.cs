@@ -20,14 +20,14 @@ public class Door : MonoBehaviour
                 // cam.MoveToNewRoom(nextRoom);
                 // nextRoom.GetComponent<Room>().ActivateRoom(true);
                 previousRoom.GetComponent<Room>().ActivateRoom(false);
-                StartCoroutine(FadeAndLoadScene(level + 3));
+                StartCoroutine(FadeAndLoadScene(level + 4));
             }
             else
             {
                 cam.MoveToNewRoom(previousRoom);
                 // nextRoom.GetComponent<Room>().ActivateRoom(false);
                 previousRoom.GetComponent<Room>().ActivateRoom(true);
-                StartCoroutine(FadeAndLoadScene(level + 1));
+                StartCoroutine(FadeAndLoadScene(level + 2));
             }
         }
     }

@@ -55,7 +55,8 @@ public class MainMenuUIManager : MonoBehaviour
         }
         else if (currentPosition == 1)
         {
-            SceneManager.LoadSceneAsync("_Levels"); // Locations
+            SceneManager.LoadSceneAsync("_Setting"); // Setting
+            // SceneManager.LoadSceneAsync("_Levels"); // Locations
             // SceneManager.LoadScene(data.buildIndex);
         }
         else if (currentPosition == 2)
