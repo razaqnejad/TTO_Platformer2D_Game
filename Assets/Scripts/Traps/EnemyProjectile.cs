@@ -33,12 +33,15 @@ public class EnemyProjectile : EnemyDamage
 
     protected void OnTriggerEnter2D(Collider2D collision) {
         base.OnTriggerEnter2D(collision);
-        hit = true;
-        coll.enabled = false;
-        if (anim != null)
-            anim.SetTrigger("explode"); //when the projectile is fireball, explode
-        else
-            gameObject.SetActive(false); // when the object is arrow, deactivate arrow
+        if (collision.tag != "Enemy")
+        {
+            hit = true;
+            coll.enabled = false;
+            if (anim != null)
+                anim.SetTrigger("explode"); //when the projectile is fireball, explode
+            else
+                gameObject.SetActive(false); // when the object is arrow, deactivate arrow
+        }
     }
 
     private void Deactivate(){
